@@ -15,7 +15,7 @@ int _printf(const char *format, ...);
 int print_char(va_list list);
 int print_string(va_list list);
 int print_int(va_list list);
-int (*get_printf_func(char *s))(va_list list);
+int get_printf_func(char s, va_list list);
 
 int _putchar(char c)
 {
@@ -31,11 +31,14 @@ int print_string(va_list list)
 {
 	char *x;
 	int y = 0;
-    
+
 	if (!x)
 		x = "(nil)";
 	while (x[y] != 0);
-        y += _putchar(x[y]);
+	{
+		y += _putchar(x[y]);
+		y++; //change
+	}
 	return (y);
 }
 
@@ -67,20 +70,27 @@ int _printf(const char *format, ...)
 		if (format[i] != 37)
 		{
 			y += _putchar(format[i]);
+			i++; // [cambio] Este es importante!!! permite imprimir los strings
 			continue;
 		}
-		if (format[i] == 'c')
-			y += get_printf_func(format[i], list);
-		else if (format[i] == 's')
-			y += get_printf_func(format[i], list);
-		else if (format[i] == 'd')
-			y += get_printf_func(format[i], list);
-		else if (format[i] == 'i')
-			y += get_printf_func(format[i], list);
-		else
+		if (format[i] == 37)
+			//y += _putchar('%'); [prueba: si encuentra el simbolo, se supone ingresa a revisar las condiciones]
+		{ // [cambios] desde aqui comienza a revisar caso por caso "supuestamente"
+			if (format[i] == 'c')
+				y += get_printf_func(format[i], list);
+			else if (format[i] == 's')
+				y += get_printf_func(format[i], list);
+			else if (format[i] == 'd')
+				y += get_printf_func(format[i], list);
+			else if (format[i] == 'i')
+				y += get_printf_func(format[i], list); // [cambio] Se supone aqui termina :v
+		}
+		else // [cambio] se asume que si lo anterior no es cierto, pasa esto...
 		{
 			return (NULL);
+			y += _putchar('%');
 			y += _putchar(format[i]);
+			break;
 		}
 		i++;
 	}
@@ -120,15 +130,15 @@ int main(void)
 //  ui = (unsigned int)INT_MAX + 1024;
 //  addr = (void *)0x7ffe637541f0;
 	_printf("Length:[%d, %i]\n", len, len);
-	printf("Length:[%d, %i]\n", len2, len2);
+//    printf("Length:[%d, %i]\n", len2, len2);
 	_printf("Character:[%c]\n", 'H');
-	printf("Character:[%c]\n", 'H');
+//    printf("Character:[%c]\n", 'H');
 	_printf("String:[%s]\n", "I am a string !");
-	printf("String:[%s]\n", "I am a string !");
+//    printf("String:[%s]\n", "I am a string !");
 	len = _printf("Percent:[%%]\n");
-	len2 = printf("Percent:[%%]\n");
+//    len2 = printf("Percent:[%%]\n");
 	_printf("Len:[%d]\n", len);
-	printf("Len:[%d]\n", len2);
+//    printf("Len:[%d]\n", len2);
 //  _printf("Address:[%p]\n", addr);
 //  printf("Address:[%p]\n", addr);
 	return (0);
