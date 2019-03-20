@@ -1,0 +1,63 @@
+.Th _printf
+.Dd 3/19/2019               \" DATE
+.Dt _printf 3
+.Os _printf
+.Sh NAME
+.Nm _printf
+.Sh SYNOPSIS
+#include "holberton.h"
+.Nm  _printf("control string", "argument -list");
+.Sh DESCRIPTION
+This customized version of the function printf -from the standard input/output library <stdio.h> - was created after building someprints on the command line a specified argument into formatted standard output.
+.Pp
+.R
+ With our version of _printf it is possible to print unformatted text directly or print variable values using format specifiers which matches variable types.
+.El
+.br
+.Sh RETURN
+If sucessful, it will return 0.
+.Sh OPTIONS
+.Nm
+handles a set of format specifiers and naturally special characters. There is a partial list:
+.br
+.Nm Format specifiers:
+.Bl -tag -width -indent
+.It %c
+Prints the value of a char variable.
+.It %i
+Prints the value of an integer.
+.It %s
+Prints a string.
+.It %f
+Prints a value which contains decimals.
+.It %u
+Prints a value of an unsigned integer.
+.El
+.Pp
+.br
+.Sh FILES
+.Bl -tag -width -indent
+.It README.md
+General description of the repository
+.It _printf.c
+Our most important function.
+.It _putchar.c
+Function that allows to print a character.
+.It holberton.h
+Our header file
+.It man_3_printf
+Our man page for the _printf function
+.It percent.c
+Function that contains the flow if a '%' is found in iteration processes.
+.It print_ch.c
+Function to print a char
+.It print_id.c
+Function to print an integer given the parameters %i or %d
+.It print_s.c
+Function that allows to print a string.
+.Pp
+.Sh SEE ALSO
+ putchar;
+.Pp
+.Sh AUTHOR
+_printf and the man page of this function were created by Paula Gutierrez and Lucia Rodriguez.
