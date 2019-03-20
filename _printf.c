@@ -8,15 +8,14 @@
 int _printf(const char *format, ...)
 {
 	prints pf_func[] = {
+		{"%", print_ch},
 		{"c", print_ch},
 		{"s", print_s},
 		{"d", print_id},
 		{"i", print_id},
 		{NULL, NULL},
 	};
-	int i = 0;
-	int j = 0;
-	int y = 0;
+	int i = 0, j = 0, y = 0;
 	va_list list;
 
 	va_start(list, format);
@@ -25,22 +24,24 @@ int _printf(const char *format, ...)
 	while (format[i] != 0)
 	{
 		if (format[i] != 37)
-		{
-			y += _putchar(format[i]);
+		{ y += _putchar(format[i]);
 			i++;
-			continue;
-		}
-		if (format[i + 1] == 37)
-			y += _putchar(37);
+			continue; }
 		i++;
 		while (pf_func[j].cons != NULL)
 		{
 			if (pf_func[j].cons[0] == format[i])
 			{
-				y += pf_func[j].func(list);
-				break;
-			}
+				if (pf_func[j].cons[0] == 37)
+				{ y += percent(); }
+				else
+					y += pf_func[j].func(list);
+				break; }
 			j++;
+			if (pf_func[j].cons == NULL)
+			{ y += _putchar(format[i - 1]);
+				y += _putchar(format[i]);
+			}
 		}
 		i++;
 	}

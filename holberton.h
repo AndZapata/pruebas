@@ -18,6 +18,7 @@ typedef struct printer
 } prints;
 
 int _putchar(char c);
+int percent(void);
 int print_ch(va_list list);
 int print_s(va_list list);
 int print_id(va_list list);
